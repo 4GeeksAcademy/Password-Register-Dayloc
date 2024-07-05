@@ -3,9 +3,7 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 
 const PasswordErrorMessage = () => {
-    return (
-        <p className="FieldError">Password should have at least 8 characters</p>
-    );
+    return <p className="FieldError">Password should have at least 8 characters</p>;
 };
 
 const ConfirmPasswordErrorMessage = () => (
@@ -133,39 +131,6 @@ const Register = () => {
                         ) : null}
                     </div>
                 </div>
-                {/* Comenté el campo de selección de rol porque parece que no lo estás utilizando actualmente */}
-                {/* <fieldset className="row mb-3 ">
-                    <div className="col-sm-5 d-flex justify-content-evenly m-auto">
-                        <div className="form-check ">
-                            <label className="form-check-label" htmlFor="gridRadios1">
-                                <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="gridRadios"
-                                    id="gridRadios1"
-                                    value="Artist"
-                                    onChange={(e) => setRole(e.target.value)}
-                                    checked={role === "Artist"}
-                                />
-                                Artist
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <label className="form-check-label" htmlFor="gridRadios2">
-                                <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="gridRadios"
-                                    id="gridRadios2"
-                                    value="Client"
-                                    onChange={(e) => setRole(e.target.value)}
-                                    checked={role === "Client"}
-                                />
-                                Client
-                            </label>
-                        </div>
-                    </div>
-                </fieldset> */}
 
                 <button
                     type="submit"

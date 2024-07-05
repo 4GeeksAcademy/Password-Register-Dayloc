@@ -5,16 +5,24 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const {  actions } = useContext(Context);
-  const [user, setUser] = useState({ email: "", password: "", userType: "" });
+  const { actions } = useContext(Context);
+  const [user, setUser] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await actions.login(user);
-    localStorage.token?(navigate("/")):alert("Incorrect email or password")
-    
+    try {
+      await actions.login(user);
+      if (localStorage.getItem('token')) {
+        console.log("User logged in");
+        navigate("/");
+      } else {
+        alert("Incorrect email or password");
+      }
+    } catch (error) {
+      console.error("Error logging in:", error);
+    }
   };
 
   return (
@@ -45,32 +53,9 @@ const Login = () => {
             className="password-toggle"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? "🙈" : "👁️"} {/* Ícono de ojo */}
+            {showPassword ? "🙈" : "👁️"}
           </span>
         </div>
-
-        {/* <div className="radio-group mt-4">
-          <label>
-            Artist
-            <input
-              className="artist"
-              type="radio"
-              name="userType"
-              value="artist"
-              onChange={(event) => setUser({ ...user, userType: event.target.value })}
-            />
-          </label>
-          <label>
-            Client
-            <input
-              className="client"
-              type="radio"
-              name="userType"
-              value="client"
-              onChange={(event) => setUser({ ...user, userType: event.target.value })}
-            />
-          </label>
-        </div> */}
 
         <div>
           <button className="btn btn-primary w-100 mt-5 go" type="submit">

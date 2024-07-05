@@ -31,7 +31,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// Otras acciones...
+
+			login: async (user) => {
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/token`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: user.email,
+                            password: user.password
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error("Invalid response");
+                    }
+
+                    const data = await response.json();
+                    localStorage.setItem('token', data.token);
+                    return data;
+                } catch (error) {
+                    console.error("Error logging in:", error);
+                }
+            },
+			
+			
+			
 		}
 	};
 };
