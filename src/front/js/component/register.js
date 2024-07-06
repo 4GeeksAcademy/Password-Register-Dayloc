@@ -57,7 +57,7 @@ const Register = () => {
     };
 
     return (
-        <div className="my-5 mt-5">
+        <div className="my-5 mt-5 text-center">
             <form onSubmit={handleSubmit}>
                 <div className="row mb-3 mt-5 text-center ">
                     <h3 className="mt-5">Register</h3>

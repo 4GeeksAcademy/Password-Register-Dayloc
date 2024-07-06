@@ -9,27 +9,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 			register: async (user) => {
 				const store = getStore();
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + '/api/register', {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/register`, {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json'
 						},
 						body: JSON.stringify(user)
 					});
-
+			
 					if (resp.ok) {
 						const data = await resp.json();
-						setStore({ ...store, token: data.token });
-						localStorage.setItem('token', JSON.stringify({ token: data.token }));
+						setStore({ ...store, token: data.token });  // Guardar el token en el store
+						localStorage.setItem('token', data.token);  // Guardar el token en localStorage
+			
 						// Puedes guardar el usuario en el store si lo necesitas
-						setStore({ ...store, user: user });
+						// setStore({ ...store, user: user });
+			
+						console.log('Usuario registrado correctamente:', data);
 					} else {
+						// Manejar errores de solicitud
 						console.log('Error en la solicitud:', resp.statusText);
+						throw new Error('Error en la solicitud al registrar usuario');
 					}
 				} catch (error) {
-					console.log('Error en la solicitud:', error);
+					// Manejar errores de red u otros errores
+					console.log('Error en la solicitud:', error.message);
+					throw new Error('Error en la solicitud al registrar usuario');
 				}
 			},
+			
 
 
 			login: async (user) => {
@@ -56,7 +64,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.error("Error logging in:", error);
                 }
             },
-			
+
 			
 			
 		}

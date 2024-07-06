@@ -16,9 +16,10 @@ const Login = () => {
       await actions.login(user);
       if (localStorage.getItem('token')) {
         console.log("User logged in");
-        navigate("/");
+        navigate("/private");
       } else {
         alert("Incorrect email or password");
+        navigate("/login");
       }
     } catch (error) {
       console.error("Error logging in:", error);
